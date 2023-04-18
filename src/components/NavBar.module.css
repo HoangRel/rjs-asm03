@@ -1,0 +1,28 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 12px;
+}
+
+.nav ul {
+  display: flex;
+  gap: 4px;
+}
+
+.nav button {
+  border: none;
+  background-color: transparent;
+  font-size: 1.2rem;
+}
+
+.nav a {
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: var(--color-secondary);
+}
