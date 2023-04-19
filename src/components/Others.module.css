@@ -1,0 +1,53 @@
+.intro {
+  background: #eaeaeaba;
+  display: flex;
+  justify-content: space-around;
+  height: 16rem;
+  align-items: center;
+}
+
+.intro p {
+  color: var(--color-gray);
+  margin-top: 12px;
+}
+
+.partici {
+  display: flex;
+  justify-content: space-between;
+}
+
+.partici > div {
+  flex-basis: 50%;
+  flex-grow: 1;
+}
+
+.partici p {
+  color: var(--color-gray);
+  margin-top: 8px;
+}
+/* 
+.partici span {
+  font-weight: 450;
+  font-size: 20px;
+} */
+/* 
+.partici p {
+  color: #808080ba;
+  font-size: 14px;
+} */
+/* 
+.partici :first-child {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+} */
+/* 
+.partici input {
+  height: 3rem;
+  padding-left: 1rem;
+  color: var(--color-gray);
+}
+.partici button {
+  background: var(--color-primary);
+  color: white;
+  height: 3rem;
+} */

@@ -1,13 +1,23 @@
+import { useSelector } from "react-redux";
+
 import Banner from "../components/Banner";
 import Category from "../components/Category";
 import Products from "../components/Products";
+import Others from "../components/Others";
+import Popup from "../components/Popup";
 
 const HomePage = () => {
+  // show Popup
+  const showPopup = useSelector((state) => state.popup.isShowPopup);
+  const data = useSelector((state) => state.popup.data);
+
   return (
     <>
+      {showPopup && <Popup data={data} />}
       <Banner />
       <Category />
       <Products />
+      <Others />
     </>
   );
 };

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap");
 
 * {
   box-sizing: border-box;
@@ -11,6 +11,7 @@
   --color-gray: #bdc3c7;
   --color-light: #ffffff;
   --color-dark: #404040;
+  --color-gray-bold: #91999e;
 }
 
 body {
@@ -30,11 +31,16 @@ section {
   margin-top: 52px;
 }
 
+footer {
+  margin-top: 64px;
+}
+
 h1,
 h2,
 h3,
 h4,
-p {
+p,
+blockquote {
   margin: 0;
 }
 
@@ -61,6 +67,11 @@ i {
 img {
   width: 100%;
   border-radius: 7px;
+}
+
+p,
+blockquote {
+  color: var(--color-gray);
 }
 
 footer {
