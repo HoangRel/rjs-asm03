@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigation } from "react-router-dom";
+import { useRouteLoaderData, useNavigation } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { popupActions } from "../store/popup";
@@ -9,13 +9,13 @@ import styles from "./Products.module.css";
 
 const Products = () => {
   // nhận data từ fectAPI
-  const data = useLoaderData();
+  const data = useRouteLoaderData("layout");
 
   const dispath = useDispatch();
 
   const navigation = useNavigation();
 
-  let productsData = data.slice(0, 8);
+  const productsData = data.slice(0, 8);
 
   //Change to price
   const formatPrice = (price) => {
