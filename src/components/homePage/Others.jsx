@@ -50,5 +50,3 @@ const Others = () => {
 };
 
 export default Others;
-
-// "#161717"

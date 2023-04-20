@@ -9,6 +9,7 @@
   --color-primary: #161717;
   --color-secondary: #f39c12;
   --color-gray: #bdc3c7;
+  --color-gray-min: #f4f4f4;
   --color-light: #ffffff;
   --color-dark: #404040;
   --color-gray-bold: #91999e;
@@ -31,14 +32,23 @@ section {
   margin-top: 52px;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  text-transform: uppercase;
+}
+
 footer {
-  margin-top: 64px;
+  margin-top: 72px;
 }
 
 h1,
 h2,
 h3,
 h4,
+h5,
 p,
 blockquote {
   margin: 0;
@@ -70,11 +80,21 @@ img {
 }
 
 p,
-blockquote {
+blockquote,
+span {
   color: var(--color-gray);
 }
 
 footer {
   background-color: var(--color-primary);
   color: var(--color-light);
+}
+
+.active {
+  color: var(--color-secondary);
+}
+
+.message {
+  margin: 100px auto;
+  text-align: center;
 }

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-import productImg_1 from "../images/product_1.png";
-import productImg_2 from "../images/product_2.png";
-import productImg_3 from "../images/product_3.png";
-import productImg_4 from "../images/product_4.png";
-import productImg_5 from "../images/product_5.png";
+import productImg_1 from "../../images/product_1.png";
+import productImg_2 from "../../images/product_2.png";
+import productImg_3 from "../../images/product_3.png";
+import productImg_4 from "../../images/product_4.png";
+import productImg_5 from "../../images/product_5.png";
 
 import styles from "./Category.module.css";
 

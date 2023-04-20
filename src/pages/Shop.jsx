@@ -1,7 +1,15 @@
 import React from "react";
 
+import Banner from "../components/Banner";
+import Container from "../components/shopPage/Container";
+
 const ShopPage = () => {
-  return <h1>ShopPage</h1>;
+  return (
+    <>
+      <Banner page="shop" />
+      <Container />
+    </>
+  );
 };
 
 export default ShopPage;

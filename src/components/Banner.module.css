@@ -1,42 +1,17 @@
 .banner {
-  position: relative;
   margin-top: 0;
-}
-
-.banner img {
-  width: 100%;
-}
-
-.banner div {
   text-transform: uppercase;
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  transform: translate(0, -50%);
-  width: 400px;
-}
-
-.banner p {
-  color: var(--color-gray);
+  background-color: var(--color-gray-min);
+  padding: 120px 62px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .banner h1 {
-  font-size: 2.5rem;
-  margin-top: 12px;
+  font-size: 3.5rem;
 }
 
-.banner button {
-  font-size: 1.35rem;
-  color: var(--color-gray);
-  background-color: var(--color-dark);
-  font-family: "Quicksand", sans-serif;
-  padding: 10px 24px;
-  margin-top: 24px;
-  border: none;
-  cursor: pointer;
-}
-
-.banner button:hover {
-  color: var(--color-dark);
-  background-color: var(--color-gray);
+.banner p {
+  color: var(--color-gray-bold);
+  margin-right: 42px;
 }

@@ -1,20 +1,10 @@
-import { useNavigate } from "react-router-dom";
-
-import bannerImg from "../images/banner1.jpg";
-
 import styles from "./Banner.module.css";
 
-const Banner = () => {
-  const navigate = useNavigate();
-
+const Banner = ({ page, other }) => {
   return (
     <section className={styles.banner}>
-      <img src={bannerImg} alt="banner" />
-      <div>
-        <p>New inspiration 2020</p>
-        <h1>20% off on new season</h1>
-        <button onClick={() => navigate("/shop")}>Browser collections</button>
-      </div>
+      <h1>{page}</h1>
+      <p>{other ? other : page}</p>
     </section>
   );
 };

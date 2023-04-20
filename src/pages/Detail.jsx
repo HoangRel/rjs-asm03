@@ -1,8 +1,17 @@
-import React from "react";
-
+import { useParams } from "react-router-dom";
+import Banner from "../components/Banner";
+import Container from "../components/detailPage/Container";
 
 const DetailPage = () => {
-  return <h1>DetailPage</h1>;
+  const params = useParams();
+  const id = params.productId;
+
+  return (
+    <>
+      <Banner page="Detail" other={`ID sản phẩm : ${id}`} />
+      <Container />
+    </>
+  );
 };
 
 export default DetailPage;

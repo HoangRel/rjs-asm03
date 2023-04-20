@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
 
-import Banner from "../components/Banner";
-import Category from "../components/Category";
-import Products from "../components/Products";
-import Others from "../components/Others";
-import Popup from "../components/Popup";
+import accounting from "accounting";
+
+import Banner from "../components/homePage/Banner";
+import Category from "../components/homePage/Category";
+import Products from "../components/homePage/Products";
+import Others from "../components/homePage/Others";
+import Popup from "../components/homePage/Popup";
 
 const HomePage = () => {
   // show Popup
@@ -25,6 +27,16 @@ const HomePage = () => {
 export default HomePage;
 
 export const loader = async () => {
+  //Change to price function
+  const formatPrice = (price) => {
+    return accounting.formatMoney(price, {
+      symbol: "VND",
+      thousand: ".",
+      precision: "",
+      format: "%v %s",
+    });
+  };
+
   const response = await fetch(
     "https://firebasestorage.googleapis.com/v0/b/funix-subtitle.appspot.com/o/Boutique_products.json?alt=media&token=dc67a5ea-e3e0-479e-9eaf-5e01bcd09c74"
   );
@@ -33,5 +45,13 @@ export const loader = async () => {
     return [];
   }
 
-  return response;
+  const resData = await response.json();
+
+  //Change to price
+  const data = resData.map((item) => ({
+    ...item,
+    price: formatPrice(item.price),
+  }));
+
+  return data;
 };

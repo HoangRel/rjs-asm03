@@ -1,9 +1,9 @@
 import { createPortal } from "react-dom";
 
 import { useDispatch } from "react-redux";
-import { popupActions } from "../store/popup";
+import { popupActions } from "../../store/popup";
 
-import { CartIcon } from "../icons/icons";
+import { CartIcon } from "../../icons/icons";
 
 import styles from "./Popup.module.css";
 
@@ -22,7 +22,7 @@ const Popup = ({ data }) => {
     return (
       <div className={styles.overlay}>
         <div>
-          <img src={data.img1} />
+          <img src={data.img1} alt={data.name} />
         </div>
         <div className={styles.detail}>
           <div>
