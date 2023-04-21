@@ -1,4 +1,6 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { popupActions } from "../store/popup";
 
 import accounting from "accounting";
 
@@ -12,6 +14,15 @@ const HomePage = () => {
   // show Popup
   const showPopup = useSelector((state) => state.popup.isShowPopup);
   const data = useSelector((state) => state.popup.data);
+
+  // hide popup khi quay lại trang Home
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(popupActions.hidePopup());
+    };
+  }, [dispatch]);
 
   return (
     <>

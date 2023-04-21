@@ -1,7 +1,12 @@
 import React from "react";
+import SignUp from "../components/registerPage/SignUp";
 
 const RegisterPage = () => {
-  return <h1>RegisterPage</h1>;
+  return (
+    <>
+      <SignUp />
+    </>
+  );
 };
 
 export default RegisterPage;

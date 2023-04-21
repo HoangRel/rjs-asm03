@@ -12,8 +12,6 @@ const ProductList = () => {
   const category = useSelector((state) => state.category.data);
 
   const clickHandler = (product) => {
-    // save product to local
-    localStorage.setItem("product", JSON.stringify(product));
     // detail page
     navigate(`/detail/${product._id.$oid}`);
   };

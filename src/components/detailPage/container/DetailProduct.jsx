@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./DetailProduct.module.css";
 
 const DetailProduct = ({ product }) => {
@@ -9,8 +9,12 @@ const DetailProduct = ({ product }) => {
     setIsViewImg(src);
   };
 
+  useEffect(() => {
+    setIsViewImg(product.img1);
+  }, [product.img1]);
+
   return (
-    <div className={styles.product}>
+    <section className={styles.product}>
       <div className={styles.imgs}>
         <img
           src={product.img1}
@@ -52,7 +56,7 @@ const DetailProduct = ({ product }) => {
           <button>Add to cart</button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

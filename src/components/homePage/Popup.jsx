@@ -1,4 +1,5 @@
 import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { popupActions } from "../../store/popup";
@@ -19,6 +20,13 @@ const Popup = ({ data }) => {
   };
 
   const Overlay = ({ data }) => {
+    const navigate = useNavigate();
+
+    const clickHandler = (product) => {
+      // detail page
+      navigate(`/detail/${product._id.$oid}`);
+    };
+
     return (
       <div className={styles.overlay}>
         <div>
@@ -31,7 +39,7 @@ const Popup = ({ data }) => {
               <p>{data.price}</p>
               <blockquote>{data.short_desc}</blockquote>
             </div>
-            <button>
+            <button onClick={() => clickHandler(data)}>
               <i>
                 <CartIcon />
               </i>
