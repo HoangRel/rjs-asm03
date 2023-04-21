@@ -98,3 +98,17 @@ footer {
   margin: 100px auto;
   text-align: center;
 }
+/* 
+.invalid input {
+  border: 1px solid #b40e0e;
+  background-color: #fddddd;
+}
+
+.invalid input:focus {
+  border-color: #ff8800;
+  background-color: #fbe8d2;
+}
+
+.error-text {
+  color: #b40e0e;
+} */
