@@ -1,8 +1,19 @@
 import { useState, useEffect } from "react";
 import styles from "./DetailProduct.module.css";
+import { useDispatch } from "react-redux";
+
+import { cartActions } from "../../../redux-store/cart";
+import { getFormStorage } from "../../localStorage/storage";
+import { useNavigate } from "react-router-dom";
+
+import Quantity from "../../Quantity";
 
 const DetailProduct = ({ product }) => {
   const [isViewImg, setIsViewImg] = useState(product.img1);
+  const [quantity, setQuantity] = useState(1);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // thay đổi ảnh lớn
   const clickHandler = (src) => {
@@ -12,6 +23,29 @@ const DetailProduct = ({ product }) => {
   useEffect(() => {
     setIsViewImg(product.img1);
   }, [product.img1]);
+
+  const changeQuantityHander = (quantity) => {
+    setQuantity(quantity);
+  };
+
+  const addToCartHandler = (event) => {
+    event.preventDefault();
+
+    const currentUser = getFormStorage("currentAcc", undefined);
+    if (!currentUser) {
+      return navigate("/login");
+    }
+
+    const cartData = {
+      id: product._id.$oid,
+      img: product.img1,
+      name: product.name,
+      price: product.price,
+      quantity: quantity,
+    };
+
+    dispatch(cartActions.ADD_CART({ userEmail: currentUser.email, cartData }));
+  };
 
   return (
     <section className={styles.product}>
@@ -41,20 +75,22 @@ const DetailProduct = ({ product }) => {
       <div className={styles.detail}>
         <div>
           <h1>{product.name}</h1>
-          <p>{product.price}</p>
+          <p>{`${Intl.NumberFormat("vi-VI").format(product.price)} VND`}</p>
           <blockquote>{product.short_desc}</blockquote>
         </div>
         <div className={styles.category}>
           <h5>CATEGORY: </h5>
           <span>{product.category}</span>
         </div>
-        <div className={styles.navigate}>
+        <form className={styles.navigate} onSubmit={addToCartHandler}>
           <p>QUANTITY</p>
-          <span>&lt;</span>
-          <span>1</span>
-          <span>&gt;</span>
+          <Quantity
+            changeQuantityHander={changeQuantityHander}
+            initialQuantity="1"
+          />
+
           <button>Add to cart</button>
-        </div>
+        </form>
       </div>
     </section>
   );

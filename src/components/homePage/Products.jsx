@@ -28,7 +28,7 @@ const Products = () => {
   // };
 
   const showPopupHandler = (data) => {
-    dispatch(popupActions.showPopup(data));
+    dispatch(popupActions.SHOW_POPUP(data));
   };
 
   return (
@@ -52,22 +52,6 @@ const Products = () => {
               product={product}
               onClick={() => showPopupHandler(product)}
             />
-            // <div
-            //   className={styles.product}
-            //   key={product._id.$oid}
-            //   onClick={() =>
-            //     showPopupHandler({
-            //       ...product,
-            //       price: formatPrice(product.price),
-            //     })
-            //   }
-            // >
-            //   <img src={product.img1} alt="" />
-            //   <div>
-            //     <h4>{product.name}</h4>
-            //     <p>{formatPrice(product.price)}</p>
-            //   </div>
-            // </div>
           ))}
         </div>
       )}

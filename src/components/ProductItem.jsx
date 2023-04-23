@@ -6,7 +6,7 @@ const ProductItem = ({ product, onClick }) => {
       <img src={product.img1} alt="" />
       <div>
         <h4>{product.name}</h4>
-        <p>{product.price}</p>
+        <p>{`${Intl.NumberFormat("vi-VI").format(product.price)} VND`}</p>
       </div>
     </div>
   );

@@ -1,0 +1,43 @@
+.cart > div > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title,
+.navigate {
+  background-color: var(--color-gray-min);
+}
+
+.title > h4,
+.navigate {
+  padding: 12px 24px;
+}
+
+.navigate {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 64px;
+}
+
+.navigate > button {
+  background-color: transparent;
+  color: var(--color-gray-bold);
+  padding: 8px 18px;
+}
+
+.navigate > button:hover {
+  color: var(--color-primary);
+}
+
+.navigate > button:first-child {
+  border: none;
+}
+
+.cart li {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.cart li > div > span {
+  border: none;
+}

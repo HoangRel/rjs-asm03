@@ -1,7 +1,14 @@
 import React from "react";
+import Banner from "../components/Banner";
+import Shopping from "../components/cartPage/Shopping";
 
 const CartPage = () => {
-  return <h1>CartPage</h1>;
+  return (
+    <>
+      <Banner page="cart" />
+      <Shopping />
+    </>
+  );
 };
 
 export default CartPage;

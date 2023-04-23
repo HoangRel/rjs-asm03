@@ -4,7 +4,7 @@ import { popupActions } from "../redux-store/popup";
 
 import accounting from "accounting";
 
-import Banner from "../components/homePage/Banner";
+import BannerHome from "../components/homePage/BannerHome";
 import Category from "../components/homePage/Category";
 import Products from "../components/homePage/Products";
 import Others from "../components/homePage/Others";
@@ -27,7 +27,7 @@ const HomePage = () => {
   return (
     <>
       {showPopup && <Popup data={data} />}
-      <Banner />
+      <BannerHome />
       <Category />
       <Products />
       <Others />
@@ -39,14 +39,14 @@ export default HomePage;
 
 export const loader = async () => {
   //  hàm thay đổi định dạng tiền
-  const formatPrice = (price) => {
-    return accounting.formatMoney(price, {
-      symbol: "VND",
-      thousand: ".",
-      precision: "",
-      format: "%v %s",
-    });
-  };
+  // const formatPrice = (price) => {
+  //   return accounting.formatMoney(price, {
+  //     symbol: "VND",
+  //     thousand: ".",
+  //     precision: "",
+  //     format: "%v %s",
+  //   });
+  // };
 
   const response = await fetch(
     "https://firebasestorage.googleapis.com/v0/b/funix-subtitle.appspot.com/o/Boutique_products.json?alt=media&token=dc67a5ea-e3e0-479e-9eaf-5e01bcd09c74"
@@ -56,13 +56,14 @@ export const loader = async () => {
     return [];
   }
 
-  const resData = await response.json();
+  // const resData = await response.json();
+  const data = await response.json();
 
   // cập nhật lại data với định dạng tiền VND
-  const data = resData.map((item) => ({
-    ...item,
-    price: formatPrice(item.price),
-  }));
+  // const data = resData.map((item) => ({
+  //   ...item,
+  //   price: formatPrice(item.price),
+  // }));
 
   return data;
 };

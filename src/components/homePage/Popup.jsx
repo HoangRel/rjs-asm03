@@ -36,7 +36,9 @@ const Popup = ({ data }) => {
           <div>
             <div>
               <h1>{data.name}</h1>
-              <p>{data.price}</p>
+              {/* <p>{data.price}</p> */}
+              <p>{`${Intl.NumberFormat("vi-VI").format(data.price)} VND`}</p>
+
               <blockquote>{data.short_desc}</blockquote>
             </div>
             <button onClick={() => clickHandler(data)}>

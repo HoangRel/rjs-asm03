@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import bannerImg from "../../images/banner1.jpg";
 
-import styles from "./Banner.module.css";
+import styles from "./BannerHome.module.css";
 
 const Banner = () => {
   const navigate = useNavigate();
