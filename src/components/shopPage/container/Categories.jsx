@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useRouteLoaderData } from "react-router-dom";
 
 import styles from "./Categories.module.css";
-import { categoryActions } from "../../../store/category";
+import { categoryActions } from "../../../redux-store/category";
 import { useEffect } from "react";
 
 const Categories = () => {

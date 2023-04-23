@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 
 import useInput from "../hooks/useInput";
 
@@ -9,9 +9,12 @@ import { useState } from "react";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const navigation = useNavigation();
 
+  // state hiển thị thông báo trùng email
   const [sameEmail, setSameEmail] = useState(false);
 
+  // nhận dữ liệu về từ việc gọi custom hook
   const {
     value: enteredName,
     isValid: enteredNameIsValid,
@@ -51,6 +54,7 @@ const SignUp = () => {
       !isNaN(parseFloat(value)) && isFinite(value) && value.trim().length >= 9
   );
 
+  // valid mặc định là k hợp lệ
   let formIsValid = false;
 
   if (
@@ -59,26 +63,32 @@ const SignUp = () => {
     enteredPasswordIsValid &&
     enteredPhoneIsValid
   ) {
+    // chỉ hợp lệ sau khi true tất cả
     formIsValid = true;
   }
 
+  // submit
   const formSubmitHandler = (event) => {
     event.preventDefault();
+    // reset lại thông báo email trùng
     setSameEmail(false);
 
     if (!formIsValid) {
       return;
     }
 
-    const userArr = getFormStorage("userArr");
+    // nếu dữ liệu đầu vào hợp lệ thì so sánh mail với các mail đã đăng ký
+    const userArr = getFormStorage("userArr", []);
 
     const hasSame = userArr.find((mov) => mov.email === enteredEmail);
 
+    //
     if (hasSame) {
       setSameEmail(true);
       return;
     }
 
+    // nếu không trùng email nào thì cập nhật -> lưu userArr
     userArr.push({
       name: enteredName,
       email: enteredEmail,
@@ -106,6 +116,8 @@ const SignUp = () => {
 
   const phoneInputClasses = phoneInputHasError ? styles.invalid : "";
 
+  const isSubmitting = navigation.state === "submitting";
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -119,22 +131,27 @@ const SignUp = () => {
               type="text"
               placeholder="Full Name"
               value={enteredName}
-              // required
+              required
               onChange={nameChangeHandler}
               onBlur={nameBlurHandler}
             ></input>
           </div>
-          <div className={emailInputClasses}>
+          <div
+            className={emailInputClasses}
+            onChange={() => setSameEmail(false)}
+          >
             {emailInputHasError && (
               <nav className={styles.error}>Mời nhập Email chuẩn dạng!</nav>
             )}
-            {sameEmail && <nav className={styles.error}>Email đã tồn tại!</nav>}
+            {sameEmail && (
+              <nav className={styles.error}>Email này đã đăng ký trước!</nav>
+            )}
 
             <input
               type="email"
               placeholder="Email"
               value={enteredEmail}
-              // required
+              required
               onChange={emailChangeHandler}
               onBlur={emailBlurHandler}
             ></input>
@@ -147,25 +164,25 @@ const SignUp = () => {
               type="password"
               placeholder="Password"
               value={enteredPassword}
-              // required
+              required
               onChange={passwordChangeHandler}
               onBlur={passwordBlurHandler}
             ></input>
           </div>
           <div className={phoneInputClasses}>
             {phoneInputHasError && (
-              <nav className={styles.error}>Mời nhập SĐT từ 9 số!</nav>
+              <nav className={styles.error}>Mời nhập SĐT hơn 9 số!</nav>
             )}
             <input
               type="text"
               placeholder="Phone"
               value={enteredPhone}
-              // required
+              required
               onChange={phoneChangeHandler}
               onBlur={phoneBlurHandler}
             ></input>
           </div>
-          <button>SIGN UP</button>
+          <button disabled={isSubmitting}>SIGN UP</button>
         </form>
         <p>
           Login?&nbsp;

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { popupActions } from "../store/popup";
+import { popupActions } from "../redux-store/popup";
 
 import accounting from "accounting";
 
@@ -15,12 +15,12 @@ const HomePage = () => {
   const showPopup = useSelector((state) => state.popup.isShowPopup);
   const data = useSelector((state) => state.popup.data);
 
-  // hide popup khi quay lại trang Home
   const dispatch = useDispatch();
 
+  // hide popup khi quay lại trang Home
   useEffect(() => {
     return () => {
-      dispatch(popupActions.hidePopup());
+      dispatch(popupActions.HIDE_POPUP());
     };
   }, [dispatch]);
 
@@ -38,7 +38,7 @@ const HomePage = () => {
 export default HomePage;
 
 export const loader = async () => {
-  //Change to price function
+  //  hàm thay đổi định dạng tiền
   const formatPrice = (price) => {
     return accounting.formatMoney(price, {
       symbol: "VND",
@@ -58,7 +58,7 @@ export const loader = async () => {
 
   const resData = await response.json();
 
-  //Change to price
+  // cập nhật lại data với định dạng tiền VND
   const data = resData.map((item) => ({
     ...item,
     price: formatPrice(item.price),

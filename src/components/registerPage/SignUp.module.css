@@ -71,7 +71,7 @@
   text-decoration: none;
 }
 
-.invalid {
+.form > div {
   position: relative;
 }
 
@@ -86,4 +86,9 @@
   font-weight: 600;
   position: absolute;
   right: -130px;
+  text-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

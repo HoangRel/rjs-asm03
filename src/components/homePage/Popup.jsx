@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { popupActions } from "../../store/popup";
+import { popupActions } from "../../redux-store/popup";
 
 import { CartIcon } from "../../icons/icons";
 
@@ -12,7 +12,7 @@ const Popup = ({ data }) => {
   const dispatch = useDispatch();
 
   const hidePopupHandler = () => {
-    dispatch(popupActions.hidePopup());
+    dispatch(popupActions.HIDE_POPUP());
   };
 
   const Backdrop = () => {

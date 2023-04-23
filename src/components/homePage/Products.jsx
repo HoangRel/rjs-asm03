@@ -1,7 +1,7 @@
 import { useRouteLoaderData, useNavigation } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { popupActions } from "../../store/popup";
+import { popupActions } from "../../redux-store/popup";
 
 import ProductItem from "../ProductItem";
 

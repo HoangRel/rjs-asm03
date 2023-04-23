@@ -6,12 +6,12 @@ const popupSlice = createSlice({
   name: "popup",
   initialState: initialPopupState,
   reducers: {
-    showPopup(state, action) {
+    SHOW_POPUP(state, action) {
       state.data = action.payload;
       state.isShowPopup = true;
     },
 
-    hidePopup(state) {
+    HIDE_POPUP(state) {
       state.isShowPopup = false;
     },
   },
