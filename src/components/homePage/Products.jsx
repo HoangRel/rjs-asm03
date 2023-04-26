@@ -8,25 +8,16 @@ import ProductItem from "../ProductItem";
 import styles from "./Products.module.css";
 
 const Products = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   // request data from fectAPI
   const data = useRouteLoaderData("layout");
 
-  const dispatch = useDispatch();
-
-  const navigation = useNavigation();
-
+  // chỉ lấy hiển thị tối đa 8 phần tử
   const productsData = data.slice(0, 8);
 
-  //Change to price
-  // const formatPrice = (price) => {
-  //   return accounting.formatMoney(price, {
-  //     symbol: "VND",
-  //     thousand: ".",
-  //     precision: "",
-  //     format: "%v %s",
-  //   });
-  // };
-
+  //
   const showPopupHandler = (data) => {
     dispatch(popupActions.SHOW_POPUP(data));
   };

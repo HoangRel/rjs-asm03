@@ -1,8 +1,17 @@
 .nav {
+  position: relative;
   display: flex;
   justify-content: space-between;
+
   align-items: center;
   padding: 24px 12px;
+}
+
+.nav > h2 {
+  position: absolute;
+
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .nav ul {

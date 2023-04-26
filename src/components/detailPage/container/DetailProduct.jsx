@@ -3,7 +3,7 @@ import styles from "./DetailProduct.module.css";
 import { useDispatch } from "react-redux";
 
 import { cartActions } from "../../../redux-store/cart";
-import { getFormStorage } from "../../localStorage/storage";
+import { getFromStorage } from "../../localStorage/storage";
 import { useNavigate } from "react-router-dom";
 
 import Quantity from "../../Quantity";
@@ -24,14 +24,16 @@ const DetailProduct = ({ product }) => {
     setIsViewImg(product.img1);
   }, [product.img1]);
 
+  //
   const changeQuantityHander = (quantity) => {
     setQuantity(quantity);
   };
 
+  //
   const addToCartHandler = (event) => {
     event.preventDefault();
 
-    const currentUser = getFormStorage("currentAcc", undefined);
+    const currentUser = getFromStorage("currentAcc", undefined);
     if (!currentUser) {
       return navigate("/login");
     }
@@ -45,6 +47,7 @@ const DetailProduct = ({ product }) => {
     };
 
     dispatch(cartActions.ADD_CART({ userEmail: currentUser.email, cartData }));
+    navigate("/shop");
   };
 
   return (

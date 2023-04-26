@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useNavigation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getFormStorage } from "../localStorage/storage";
+import { getFromStorage } from "../localStorage/storage";
 
 import useInput from "../hooks/useInput";
 import { authActions } from "../../redux-store/auth";
@@ -35,7 +35,7 @@ const SignIn = () => {
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
     reset: resetPasswordInput,
-  } = useInput((value) => value.trim().length >= 8);
+  } = useInput((value) => value.trim() !== "");
 
   let isFormValid = false;
 
@@ -43,6 +43,7 @@ const SignIn = () => {
     isFormValid = true;
   }
 
+  //
   const submitHanlder = (event) => {
     event.preventDefault();
 
@@ -53,7 +54,7 @@ const SignIn = () => {
       return;
     }
 
-    const userArr = getFormStorage("userArr", []);
+    const userArr = getFromStorage("userArr", []);
 
     // ckeck email
     const emailAcc = userArr.find((mov) => mov.email === enteredEmail);
@@ -98,7 +99,7 @@ const SignIn = () => {
               <nav className={styles.error}>Mời nhập Email chuẩn dạng!</nav>
             )}
             {!hasEmail && (
-              <nav className={styles.error}>Email chưa được đăng ký!</nav>
+              <nav className={styles.error}>Sai Email hoặc Password!</nav>
             )}
             <input
               type="email"
@@ -114,7 +115,7 @@ const SignIn = () => {
             onChange={() => setHasPassword(true)}
           >
             {passwordInputHasError && (
-              <nav className={styles.error}>Mời nhập Password từ 8 ký tự!</nav>
+              <nav className={styles.error}>Mời nhập Password!</nav>
             )}
             {!hasPassword && <nav className={styles.error}>Sai Password!</nav>}
 

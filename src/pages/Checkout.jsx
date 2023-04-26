@@ -1,5 +1,18 @@
+import Banner from "../components/Banner";
+import Billings from "../components/checkoutPage/Billings";
+
 const CheckoutPage = () => {
-  return <h1>CheckoutPage</h1>;
+  const obj = {
+    home: "Home",
+    cart: "Cart",
+  };
+
+  return (
+    <>
+      <Banner page="Checkout" other="Checkout" navi="true" obj={obj} />
+      <Billings />
+    </>
+  );
 };
 
 export default CheckoutPage;

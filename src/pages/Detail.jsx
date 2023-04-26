@@ -6,6 +6,7 @@ import Container from "../components/detailPage/Container";
 const DetailPage = () => {
   const [isProduct, setIsProduct] = useState(false);
 
+  // lấy ID sản phẩm từ url
   const params = useParams();
   const id = params.productId;
 

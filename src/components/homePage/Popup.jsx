@@ -11,6 +11,7 @@ import styles from "./Popup.module.css";
 const Popup = ({ data }) => {
   const dispatch = useDispatch();
 
+  // hàm xóa
   const hidePopupHandler = () => {
     dispatch(popupActions.HIDE_POPUP());
   };

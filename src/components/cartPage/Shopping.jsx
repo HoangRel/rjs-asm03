@@ -1,67 +1,83 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-// import { authActions } from "../../redux-store/auth";
 import { cartActions } from "../../redux-store/cart";
-import { getFormStorage } from "../localStorage/storage";
+import { getFromStorage } from "../localStorage/storage";
 
 import Total from "./Total";
 import { useEffect, useState } from "react";
 import Quantity from "../Quantity";
 import { DeleteIcon } from "../../icons/icons";
-// import usePrice from "../hooks/usePrice";
 
 import styles from "./Shopping.module.css";
 
 const Shopping = () => {
-  const [authed, setAuthed] = useState(true);
+  const [authed, setAuthed] = useState(false);
   const [products, setProducts] = useState(false);
   const [email, setEmail] = useState(null);
-  const setUpdatedProduct = useState(null)[1];
-  // const [total, setTotal] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  // state này đảm bảo việc cập product mới nhất theo cách thủ công.
+  const [updatedProduct, setUpdatedProduct] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // xác nhận trạng thái đăng nhập , lấy email
   useEffect(() => {
-    setAuthed(true);
+    setAuthed(false);
+    const currentUser = getFromStorage("currentAcc", false);
+    if (currentUser) {
+      const email = currentUser.email;
+      setEmail(email);
+      if (email) {
+        setAuthed(true);
+      }
+    }
+    return;
+  }, []);
+
+  // lấy dữ liệu
+  useEffect(() => {
     setProducts(false);
 
-    const currentUser = getFormStorage("currentAcc", undefined);
-    if (!currentUser) {
-      setAuthed(false);
-      return;
-    }
+    const data = getFromStorage(`cartData_${email}`, []);
 
-    const email = currentUser.email;
-
-    const data = getFormStorage(`cartData_${email}`, []);
-
-    if (!data || data.length === 0) {
-      setProducts(false);
+    if (data.length === 0) {
       return;
     }
 
     setProducts(data);
-    setEmail(email);
-  }, []);
 
+    // tính tổng tất cả
+    const totalPrice = data.reduce(
+      (acc, cur) => acc + cur.price * cur.quantity,
+      0
+    );
+    setTotalPrice(totalPrice);
+  }, [email, updatedProduct]);
+
+  //
   const changeQuantityHander = (productId, quantity) => {
-    const cartData = products.find((mov) => mov.id === productId);
+    const productData = products.find((mov) => mov.id === productId);
 
-    cartData.quantity = quantity;
+    productData.quantity = quantity;
 
-    dispatch(cartActions.UPDATE_CART({ userEmail: email, cartData }));
+    dispatch(cartActions.UPDATE_CART({ userEmail: email, productData }));
+  };
 
-    setUpdatedProduct(cartData);
+  //
+  const clickDeleteHandler = (mov) => {
+    dispatch(cartActions.DELETE_CART({ userEmail: email, productData: mov }));
+    setUpdatedProduct((pre) => !pre);
   };
 
   return (
-    <section>
+    <section className={styles.section}>
       <h2>Shopping Cart</h2>
-      {authed && (
-        <div>
-          <div className={styles.cart}>
+      <div>
+        <div className={styles.cart}>
+          {authed ? (
             <div>
               <div className={styles.title}>
                 <h4>Image</h4>
@@ -71,44 +87,57 @@ const Shopping = () => {
                 <h4>Total</h4>
                 <h4>Remove</h4>
               </div>
-              <ul>
-                {products &&
-                  products.map((mov) => (
-                    <li key={mov.id}>
-                      <img src={mov.img} alt={mov.name} />
-                      <h4>{mov.name}</h4>
-                      <p>{Intl.NumberFormat("vi-VI").format(mov.price)} VND</p>
-                      <div>
-                        <Quantity
-                          changeQuantityHander={(quantity) =>
-                            changeQuantityHander(mov.id, quantity)
-                          }
-                          initialQuantity={mov.quantity}
-                        />
-                      </div>
-                      <p>
-                        {Intl.NumberFormat("vi-Vi").format(
-                          mov.price * mov.quantity
-                        )}{" "}
-                        VND
-                      </p>
-                      <i>
-                        <DeleteIcon />
-                      </i>
-                    </li>
-                  ))}
-              </ul>
+              {products ? (
+                <ul>
+                  {products &&
+                    products.map((mov) => (
+                      <li key={mov.id}>
+                        <img src={mov.img} alt={mov.name} />
+                        <h4>{mov.name}</h4>
+                        <p>
+                          {Intl.NumberFormat("vi-VI").format(mov.price)}
+                          <br />
+                          VND
+                        </p>
+                        <div onClick={() => setUpdatedProduct((pre) => !pre)}>
+                          <Quantity
+                            changeQuantityHander={(quantity) =>
+                              changeQuantityHander(mov.id, quantity)
+                            }
+                            initialQuantity={mov.quantity}
+                          />
+                        </div>
+                        <p>
+                          {Intl.NumberFormat("vi-Vi").format(
+                            mov.price * mov.quantity
+                          )}
+                          <br />
+                          VND
+                        </p>
+                        <i onClick={() => clickDeleteHandler(mov)}>
+                          <DeleteIcon />
+                        </i>
+                      </li>
+                    ))}
+                </ul>
+              ) : (
+                <p className="message">Rỗng</p>
+              )}
             </div>
+          ) : (
+            <p className="message">Mời đăng nhập!</p>
+          )}
 
-            <div className={styles.navigate}>
-              <button
-                className="btn_continue"
-                onClick={() => {
-                  navigate("/shop");
-                }}
-              >
-                <strong>&larr;</strong> Continue shopping
-              </button>
+          <div className={styles.navigate}>
+            <button
+              className="btn_continue"
+              onClick={() => {
+                navigate("/shop");
+              }}
+            >
+              <strong>&larr;</strong> Continue shopping
+            </button>
+            {authed ? (
               <button
                 className="btn_proceed"
                 onClick={() => {
@@ -117,11 +146,20 @@ const Shopping = () => {
               >
                 Proceed to checkout <strong>&rarr;</strong>
               </button>
-            </div>
+            ) : (
+              <button
+                className="btn_proceed"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login <strong>&rarr;</strong>
+              </button>
+            )}
           </div>
-          <Total />
         </div>
-      )}
+        <Total totalPrice={totalPrice} />
+      </div>
     </section>
   );
 };

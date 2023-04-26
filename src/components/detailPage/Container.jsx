@@ -35,6 +35,7 @@ const Container = ({ id, isProduct, setIsProduct }) => {
     }
   }, [id, data, setIsProduct]);
 
+  //
   const clickHandler = (product) => {
     navigate(`/detail/${product._id.$oid}`);
     window.scrollTo(0, 0);

@@ -2,7 +2,7 @@ import { Link, useNavigate, useNavigation } from "react-router-dom";
 
 import useInput from "../hooks/useInput";
 
-import { saveToStorage, getFormStorage } from "../localStorage/storage";
+import { saveToStorage, getFromStorage } from "../localStorage/storage";
 
 import styles from "./SignUp.module.css";
 import { useState } from "react";
@@ -78,7 +78,7 @@ const SignUp = () => {
     }
 
     // nếu dữ liệu đầu vào hợp lệ thì so sánh mail với các mail đã đăng ký
-    const userArr = getFormStorage("userArr", []);
+    const userArr = getFromStorage("userArr", []);
 
     const hasSame = userArr.find((mov) => mov.email === enteredEmail);
 
@@ -174,7 +174,7 @@ const SignUp = () => {
               <nav className={styles.error}>Mời nhập SĐT hơn 9 số!</nav>
             )}
             <input
-              type="text"
+              type="number"
               placeholder="Phone"
               value={enteredPhone}
               required

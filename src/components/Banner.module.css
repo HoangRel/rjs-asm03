@@ -15,3 +15,21 @@
   color: var(--color-gray-bold);
   margin-right: 42px;
 }
+
+.banner > div {
+  display: flex;
+}
+
+.banner > div a:not(:last-child)::after {
+  margin: 10px;
+  content: "/ ";
+}
+
+.banner > div > a {
+  margin: 0;
+  color: var(--color-primary);
+}
+
+.banner > div > a:last-child {
+  color: var(--color-gray-bold);
+}

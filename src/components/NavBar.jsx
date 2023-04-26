@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CartIcon, LoginIcon } from "../icons/icons";
 
 import { authActions } from "../redux-store/auth";
-import { getFormStorage } from "./localStorage/storage";
+import { getFromStorage } from "./localStorage/storage";
 
 import styles from "./NavBar.module.css";
 import { useEffect } from "react";
@@ -23,7 +23,7 @@ const NavBar = () => {
 
   // Đảm bảo isLogged là true dù tải lại trang nếu có currentArr đã lưu trong local
   useEffect(() => {
-    const savedCurrentArr = getFormStorage("currentAcc", false);
+    const savedCurrentArr = getFromStorage("currentAcc", false);
 
     if (savedCurrentArr) {
       dispatch(authActions.ON_LOGIN(savedCurrentArr));
